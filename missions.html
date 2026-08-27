@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Chronicle of historical and active solar expeditions undertaken by the Astral Cruiser 5000." />
+  <meta name="theme-color" content="#07090E" />
+  
+  <title>Missions & Expeditions | Astral Cruiser 5000</title>
+  
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <canvas id="starfield-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">✦</div>
+        ASTRAL <span>CRUISER 5000</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="fleet.html">Fleet & Tech</a></li>
+        <li><a href="missions.html" class="active">Missions</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="crew.html">Crew & Science</a></li>
+        <li><a href="booking.html" class="btn btn-sm btn-primary" style="margin-left: 8px;">Book Voyage</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button type="button" class="sound-toggle-btn" id="sound-toggle" aria-label="Toggle UI Audio">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span class="sound-label">AUDIO: MUTED</span>
+        </button>
+
+        <button type="button" class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Telemetry Ticker -->
+  <div class="telemetry-ticker">
+    <div class="ticker-inner">
+      <div class="ticker-item"><span class="label">MISSION LOG:</span> <span class="val">EXPEDITION 06 IN FLIGHT</span></div>
+      <div class="ticker-item"><span class="label">TOTAL FLIGHT DISTANCE:</span> <span class="val glow-cyan">482,000,000 KM</span></div>
+      <div class="ticker-item"><span class="label">PERIHELION RECORD:</span> <span class="val">5.68M KM FROM SUN</span></div>
+      <div class="ticker-item"><span class="label">DATA RETURNED:</span> <span class="val">14.8 PETA-BYTES</span></div>
+    </div>
+  </div>
+
+  <!-- Header Section -->
+  <header class="section-padding" style="padding-top: 60px; padding-bottom: 40px;">
+    <div class="container text-center">
+      <div class="reveal">
+        <span class="badge badge-gold">HISTORICAL LOGS</span>
+        <h1 class="glow-title" style="font-size: clamp(2.5rem, 5vw, 4rem); margin: 16px 0 20px;" data-scramble>
+          Solar Expedition Chronicles
+        </h1>
+        <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto; font-size: 1.15rem;">
+          From the Maiden Corona Skim to direct Solar Flare sampling, discover the milestone voyages that reshaped astrophysics and human courage.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Timeline -->
+  <section class="container" style="margin-bottom: 80px;">
+    <div class="timeline">
+      
+      <!-- Mission 1 -->
+      <div class="timeline-item left reveal">
+        <div class="timeline-node"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">MARCH 2024 • FLIGHT AC-5001</div>
+          <h3 class="glow-title">Mission Helios-1: Maiden Solar Run</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 8px;">
+            The maiden voyage of StarCruiser 5000. Verified thermal shielding capabilities at 0.15 AU, proving our aerogel heat deflectors withstand baseline solar flux.
+          </p>
+          <span class="badge badge-gold" style="margin-top: 12px;">OUTCOME: 100% SUCCESS</span>
+        </div>
+      </div>
+
+      <!-- Mission 2 -->
+      <div class="timeline-item right reveal">
+        <div class="timeline-node"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">OCTOBER 2024 • FLIGHT AC-5002</div>
+          <h3 class="glow-cyan-title">Mission Helios-2: Mercury Gravity Slingshot</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 8px;">
+            Utilized Mercury's gravity assist to accelerate the cruiser into an elliptical orbit bringing the ship within 0.08 AU of the Sun's magnetic equator.
+          </p>
+          <span class="badge" style="margin-top: 12px;">VELOCITY: 118 KM/S</span>
+        </div>
+      </div>
+
+      <!-- Mission 3 -->
+      <div class="timeline-item left reveal">
+        <div class="timeline-node"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">JUNE 2025 • FLIGHT AC-5003</div>
+          <h3 class="glow-title">Mission Helios-3: First Corona Dive</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 8px;">
+            The first manned spacecraft to enter the Sun’s outer coronal atmosphere. Dr. Anna Schwartz collected direct magnetic reconnection samples.
+          </p>
+          <span class="badge badge-gold" style="margin-top: 12px;">TEMP: 3.8M °C</span>
+        </div>
+      </div>
+
+      <!-- Mission 4 -->
+      <div class="timeline-item right reveal">
+        <div class="timeline-node"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">JANUARY 2026 • FLIGHT AC-5004</div>
+          <h3 class="glow-cyan-title">Mission Helios-4: Super Flare Intercept</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 8px;">
+            Intercepted a Class X-12 solar flare prominence, harvesting 9.4 Terawatts of renewable coronal plasma directly into ship power cells.
+          </p>
+          <span class="badge" style="margin-top: 12px;">RECORD ENERGY HARVEST</span>
+        </div>
+      </div>
+
+      <!-- Mission 5 -->
+      <div class="timeline-item left reveal">
+        <div class="timeline-node"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">CURRENT • FLIGHT AC-5006</div>
+          <h3 class="glow-title">Mission Helios-6: Extended Perihelion Odyssey</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 8px;">
+            Active commercial and scientific cruise with 110 astronauts and guests onboard, conducting solar photography and quantum physics tests.
+          </p>
+          <span class="badge badge-gold badge-pulse" style="margin-top: 12px;">ACTIVE IN FLIGHT</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Scientific Breakthroughs -->
+  <section class="section-padding" style="background: rgba(10, 15, 26, 0.7);">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 50px;">
+        <span class="badge">ASTROPHYSICS</span>
+        <h2 class="glow-title" style="font-size: 2.4rem; margin-top: 10px;">Scientific Discoveries</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="glass-card reveal">
+          <h3 style="color: var(--solar-gold); margin-bottom: 12px;">Coronal Heating Puzzle</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Discovered nanoscale magnetic reconnection waves directly heating the solar atmosphere millions of degrees hotter than the surface.
+          </p>
+        </div>
+
+        <div class="glass-card reveal">
+          <h3 style="color: var(--ion-cyan); margin-bottom: 12px;">Solar Wind Acceleration</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Mapped switchbacks in the Sun's magnetic field that slingshot ionized particles toward Earth at relativistic speeds.
+          </p>
+        </div>
+
+        <div class="glass-card reveal">
+          <h3 style="color: var(--solar-gold); margin-bottom: 12px;">Infinite Plasma Energy</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Successfully prototyped direct coronal induction, providing fuel-free power for future deep space warp starships.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-padding text-center">
+    <div class="container">
+      <h2 class="glow-title" style="font-size: 2.4rem; margin-bottom: 16px;">Be Part of the Next Solar Expedition</h2>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 30px;">
+        Launch clearances for Helios-7 are now accepting cadet and specialist reservations.
+      </p>
+      <a href="booking.html" class="btn btn-primary">Reserve Mission Seat</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 16px;">
+            <div class="logo-icon">✦</div>
+            ASTRAL <span>CRUISER 5000</span>
+          </div>
+          <p>Humanity's pioneering deep solar exploration initiative.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Flagship Overview</a></li>
+            <li><a href="fleet.html">Fleet & Tech Specs</a></li>
+            <li><a href="missions.html">Mission Chronicles</a></li>
+            <li><a href="gallery.html">8K Media Archives</a></li>
+            <li><a href="crew.html">Crew & Leadership</a></li>
+            <li><a href="booking.html">Voyage Booking</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Spaceport Coordinates</h4>
+          <ul>
+            <li class="mono" style="color: var(--text-secondary);">LEO Orbital Gateway 13</li>
+            <li class="mono" style="color: var(--text-secondary);">Altitude: 420 km LEO</li>
+            <li style="color: var(--ion-cyan); margin-top: 8px;">Comms: ac5-solar@astral.space</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Solar Telemetry Feed</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">
+            Receive encrypted coronal mass ejection telemetry.
+          </p>
+          <div style="display: flex; gap: 8px;">
+            <input type="email" placeholder="Enter cadet comms email" class="form-control" style="padding: 8px 14px; font-size: 0.85rem;" />
+            <button class="btn btn-sm btn-cyan">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Astral Cruiser 5000 Program. All orbital rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

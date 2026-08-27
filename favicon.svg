@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE066" />
+      <stop offset="50%" stop-color="#FF9F1C" />
+      <stop offset="100%" stop-color="#E71D36" />
+    </linearGradient>
+    <linearGradient id="ionGlow" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="100%" stop-color="#7000FF" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#080B10" />
+  <circle cx="32" cy="32" r="28" stroke="rgba(0, 240, 255, 0.25)" stroke-width="1.5" fill="none" stroke-dasharray="4 2" />
+  <!-- Solar Halo -->
+  <circle cx="32" cy="24" r="12" fill="url(#goldGlow)" opacity="0.2" filter="url(#glow)" />
+  <!-- Spacecraft Silhouette -->
+  <path d="M32 8 L44 42 L37 40 L32 35 L27 40 L20 42 Z" fill="url(#goldGlow)" filter="url(#glow)" />
+  <!-- Cockpit canopy & Hull accents -->
+  <path d="M32 14 L36 28 L32 30 L28 28 Z" fill="#0D1117" />
+  <circle cx="32" cy="22" r="2.5" fill="#00F0FF" />
+  <!-- Ion Engine Plumes -->
+  <path d="M25 41 L24 54 L27 41 Z" fill="url(#ionGlow)" />
+  <path d="M30 40 L32 58 L34 40 Z" fill="url(#ionGlow)" />
+  <path d="M37 41 L40 54 L39 41 Z" fill="url(#ionGlow)" />
+</svg>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Meet the astrophysicists, flight commanders, and researchers piloting the Astral Cruiser 5000 solar expedition." />
+  <meta name="theme-color" content="#07090E" />
+  
+  <title>Crew & Science Division | Astral Cruiser 5000</title>
+  
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <canvas id="starfield-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">✦</div>
+        ASTRAL <span>CRUISER 5000</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="fleet.html">Fleet & Tech</a></li>
+        <li><a href="missions.html">Missions</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="crew.html" class="active">Crew & Science</a></li>
+        <li><a href="booking.html" class="btn btn-sm btn-primary" style="margin-left: 8px;">Book Voyage</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button type="button" class="sound-toggle-btn" id="sound-toggle" aria-label="Toggle UI Audio">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span class="sound-label">AUDIO: MUTED</span>
+        </button>
+
+        <button type="button" class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Telemetry Ticker -->
+  <div class="telemetry-ticker">
+    <div class="ticker-inner">
+      <div class="ticker-item"><span class="label">CREW COMPLEMENT:</span> <span class="val glow-cyan">34 FLIGHT OFFICERS • 76 SPECIALISTS</span></div>
+      <div class="ticker-item"><span class="label">HABITATION PRESSURE:</span> <span class="val">101.3 kPa (NORMAL)</span></div>
+      <div class="ticker-item"><span class="label">BIOMETRIC STATUS:</span> <span class="val glow-cyan">ALL PERSONNEL NOMINAL</span></div>
+      <div class="ticker-item"><span class="label">SOLAR LAB:</span> <span class="val">SPECTROMETRY ONLINE</span></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="section-padding" style="padding-top: 60px; padding-bottom: 40px;">
+    <div class="container text-center">
+      <div class="reveal">
+        <span class="badge badge-gold">EXPEDITION CADRE</span>
+        <h1 class="glow-title" style="font-size: clamp(2.5rem, 5vw, 4rem); margin: 16px 0 20px;" data-scramble>
+          Command & Science Personnel
+        </h1>
+        <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto; font-size: 1.15rem;">
+          World-renowned astrophysicists, veteran commanders, and life-support engineers dedicated to charting humanity's solar frontier.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Leadership Grid -->
+  <section class="container" style="margin-bottom: 80px;">
+    <div class="crew-showcase-grid">
+      
+      <!-- Leader 1 -->
+      <div class="crew-card reveal-left">
+        <div class="crew-avatar-wrapper">
+          <img src="./images/dr_anna_schwartz.jpg" alt="Dr. Anna Schwartz" class="crew-avatar" loading="lazy" width="130" height="130" />
+        </div>
+        <div>
+          <h3 style="color: #FFF; font-size: 1.3rem;">Dr. Anna Schwartz</h3>
+          <p class="mono" style="color: var(--solar-gold); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px;">
+            Chief Scientist of Astral Cruiser 5000
+          </p>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+            Former Director of Solar Heliophysics at ESA and NASA. Published 40+ papers on magnetic reconnection loops and coronal plasma induction.
+          </p>
+        </div>
+      </div>
+
+      <!-- Leader 2 -->
+      <div class="crew-card reveal-right">
+        <div class="crew-avatar-wrapper">
+          <img src="./images/commander_thorne.jpg" alt="Commander Marcus Thorne" class="crew-avatar" loading="lazy" width="130" height="130" />
+        </div>
+        <div>
+          <h3 style="color: #FFF; font-size: 1.3rem;">Cmdr. Marcus Thorne</h3>
+          <p class="mono" style="color: var(--ion-cyan); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px;">
+            Senior Flight Commander
+          </p>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+            Over 2,400 hours of interplanetary piloting time across Mercury gravity assists and perihelion burns. Commanded 6 flawless solar approaches.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Life Onboard the 5000 Series -->
+  <section class="section-padding" style="background: rgba(10, 15, 26, 0.75);">
+    <div class="container">
+      <div class="origin-grid">
+        <div class="origin-content reveal-left">
+          <span class="badge">HABITATION MATRIX</span>
+          <h2 class="glow-title" style="font-size: 2.4rem; margin: 12px 0 20px;">Life Inside the Solar Shield</h2>
+          <p class="story-lead">
+            Far from a cramped capsule, the <strong>Astral Cruiser 5000</strong> provides luxury accommodations, fine culinary hydroponics, and private staterooms inside our 1-G gravity ring.
+          </p>
+          <div class="story-card-list">
+            <div class="story-item">
+              <div class="icon">✨</div>
+              <div>
+                <strong style="color: #FFF;">Panoramic Star Lounges</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Polarized crystal windows that filter 99.99% UV radiation for safe eye contact with the Sun.</p>
+              </div>
+            </div>
+            <div class="story-item">
+              <div class="icon">🥗</div>
+              <div>
+                <strong style="color: #FFF;">Zero-G & 1-G Hydroponic Dining</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Fresh culinary produce cultivated daily under simulated terrestrial light cycles.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="origin-media reveal-right">
+          <div class="origin-image-container">
+            <img src="./images/cockpit_lounge.jpg" alt="Spaceship Interior Lounge" loading="lazy" width="600" height="420" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive FAQs Accordion -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 50px;">
+        <span class="badge badge-gold">CADET BRIEFING</span>
+        <h2 class="glow-title" style="font-size: 2.4rem; margin-top: 10px;">Solar Voyage FAQs</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            <span>How close does the Astral Cruiser 5000 get to the Sun?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            During maximum perihelion orbital approach, the cruiser flies within 0.038 AU (approx. 5.68 million kilometers) of the solar photosphere—closer than Mercury and inside the corona.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            <span>Is radiation dangerous for passengers and scientists onboard?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            No. The ship employs a dual-tier protection system: an active 14.2 Tesla toroidal magnetic deflector field combined with a multilayer gold-aerogel thermal shield that reduces interior radiation to below Earth-sea-level standards.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            <span>Do passengers experience weightlessness or artificial gravity?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            The main habitation quarters, dining lounges, and staterooms are situated in the centrifugal rotating ring providing 1.0 Earth-G. Microgravity science pods are accessible on the central hub.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            <span>What pre-flight training is required for guests?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            All voyagers undergo a 5-day acclimatization protocol at Gateway Spaceport 13 in Low Earth Orbit covering emergency pressure gear, space navigation basics, and vestibular orientation.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 16px;">
+            <div class="logo-icon">✦</div>
+            ASTRAL <span>CRUISER 5000</span>
+          </div>
+          <p>Humanity's pioneering deep solar exploration initiative.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Flagship Overview</a></li>
+            <li><a href="fleet.html">Fleet & Tech Specs</a></li>
+            <li><a href="missions.html">Mission Chronicles</a></li>
+            <li><a href="gallery.html">8K Media Archives</a></li>
+            <li><a href="crew.html">Crew & Leadership</a></li>
+            <li><a href="booking.html">Voyage Booking</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Spaceport Coordinates</h4>
+          <ul>
+            <li class="mono" style="color: var(--text-secondary);">LEO Orbital Gateway 13</li>
+            <li class="mono" style="color: var(--text-secondary);">Altitude: 420 km LEO</li>
+            <li style="color: var(--ion-cyan); margin-top: 8px;">Comms: ac5-solar@astral.space</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Solar Telemetry Feed</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">
+            Receive encrypted coronal mass ejection telemetry.
+          </p>
+          <div style="display: flex; gap: 8px;">
+            <input type="email" placeholder="Enter cadet comms email" class="form-control" style="padding: 8px 14px; font-size: 0.85rem;" />
+            <button class="btn btn-sm btn-cyan">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Astral Cruiser 5000 Program. All orbital rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
