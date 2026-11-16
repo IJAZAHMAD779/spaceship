@@ -1,67 +1,24 @@
-# 🚀 Astral Cruiser 5000 (StarCruiser 5000)
-### *Humanity's Flagship Solar Exploration & Deep Space Pioneer Vessel*
+# Astral Cruiser 5000 (`AC-5000`)
 
-An ultra-premium, multi-page, sci-fi web experience designed for solar corona astrophysics missions and luxury interplanetary voyaging. Crafted as a state-of-the-art portfolio showcase featuring dynamic canvas particle engines, synthesized HUD audio, live telemetry simulations, and an interactive boarding pass generator.
+Scroll-driven 3D solar exploration experience built with **React**, **Vite**, **Three.js**, **GSAP (`ScrollTrigger`)**, **Framer Motion**, and **Lenis**.
 
----
+## Architecture
 
-## 🌟 Key Highlights & Features
+- **Persistent WebGL Stage (`src/components/SpaceCanvas.jsx`)**: Custom GLSL solar photosphere and corona shaders, scroll-velocity-reactive starfield, and a multi-part procedural `AC-5000` spacecraft assembly (`Carbon-Composite Heat Shield`, `Centrifugal 1-G Habitation Ring`, `Dual-Phase Ion Fusion Drive`, and `Coronal Plasma Array`).
+- **Scroll Choreography (`src/App.jsx`)**: Lenis smooth scroll synced with GSAP `ScrollTrigger` to drive the 3D camera trajectory, pinned exploded vessel inspection, desktop horizontal mission timeline (`Helios-1` through `Helios-6`), and inverse-square orbital telemetry (`1.000 AU` → `0.038 AU`, `1.36 kW/m²` → `942.5 kW/m²`).
+- **UI State & Motion (`Framer Motion`)**: Shared-element `layoutId` transitions for chapter navigation indicators, archive filter pills, lightbox frame zoom, cabin tier selection, and accessible FAQ accordions.
+- **Scroll-Reactive Web Audio (`src/utils/audioEngine.js`)**: Optional Web Audio API synthesizer modulated by scroll velocity and solar proximity.
 
-- **🪐 Dynamic 2D Canvas Starfield & Coronal Warp Engine**: Real-time particle field with depth perspective, cosmic dust, and subtle mouse-parallax reactive movement.
-- **🔊 Web Audio API Synthesizer**: Zero-external-file synthesized UI sound effects (blips, beeps, frequency chirps) with a global mute/sound toggle.
-- **🛰️ Multi-Page Architecture**: 6 interconnected pages built with semantic HTML5 and clean routing.
-- **📊 Live Telemetry HUD Ticker**: Simulates mission elapsed time, solar flux ($W/m^2$), shield integrity percentage ($99.84\%$), and orbital distance ($0.038\text{ AU}$).
-- **🔍 Interactive Fleet Blueprint Inspector**: Clickable hotspot telemetry viewer exploring the thermal heat shield, quantum ion drive, gravity ring, and plasma harvesters.
-- **🖼️ 8K Media Archives with Lightbox Modal**: Filterable gallery (Solar Flares, Ship Modules, Crew Spacewalks) with full-screen zoom and telemetry metadata.
-- **🎫 Mission Flight Clearance & Boarding Pass HUD Generator**: Interactive cabin tier selector, dynamic Solar Credit price calculator, and live generated printable holographic boarding pass.
-- **📱 100% Mobile Responsive & Performance Optimized**: Glassmorphic slide-out navigation drawer, lazy-loaded imagery, skeleton shimmers, and zero layout shift.
-- **🎨 Bespoke Design System**: Custom SVG Favicon, cyber-glow gradients, JetBrains Mono & Outfit typography, and glassmorphic cards.
-
----
-
-## 📂 Multi-Page Directory Structure
-
-| Page | File | Description |
-| :--- | :--- | :--- |
-| **Mission Overview** | [`index.html`](./index.html) | Flagship hero, live telemetry ticker, milestones counters, origins narrative, photo teaser, and leadership quotes. |
-| **Fleet & Engineering** | [`fleet.html`](./fleet.html) | Interactive cross-section schematic, subsystem hotspots, technical matrix, and SC-1000/3000/5000 comparison table. |
-| **Missions & Expeditions** | [`missions.html`](./missions.html) | Interactive chronological mission timeline (Helios-1 through Helios-6), perihelion records, and astrophysical discoveries. |
-| **8K Media Gallery** | [`gallery.html`](./gallery.html) | Category-filter optical archives with interactive full-screen Lightbox viewer and radiation telemetry. |
-| **Crew & Leadership** | [`crew.html`](./crew.html) | Profiles of Chief Scientist Dr. Anna Schwartz & Cmdr. Marcus Thorne, life onboard 1-G gravity ring, and interactive FAQs. |
-| **Flight Clearance & Pass** | [`booking.html`](./booking.html) | Interactive cabin customizer, voyage calculator, and printable holographic boarding pass generator. |
-
----
-
-## 🛠️ Technology Stack
-
-- **Markup**: HTML5 (Semantic, SEO-optimized, Accessible `aria-*` tags)
-- **Styling**: Vanilla CSS3 & SCSS modules (Custom design tokens, Glassmorphism, CSS Grid, Flexbox, Keyframe animations)
-- **Scripting**: Modern Vanilla JavaScript ES6+ (IntersectionObserver, Canvas 2D API, Web Audio API)
-- **Typography**: Google Fonts (`Outfit`, `Space Grotesk`, `JetBrains Mono`)
-- **Assets**: Optimized high-resolution custom sci-fi photography, SVG vector icons, and custom SVG favicon
-
----
-
-## 🚀 Getting Started / Local Preview
-
-To run and explore the website locally:
+## Local Development
 
 ```bash
-# Using Python built-in HTTP server:
-python -m http.server 8099
-
-# Or using Node.js npx serve:
-npx -y serve -l 8099 .
+npm install
+npm run dev
 ```
 
-Then open your browser and navigate to:
+Production build:
+
+```bash
+npm run build
+npm run preview
 ```
-http://localhost:8099/index.html
-```
-
----
-
-## 📜 License & Credits
-
-Designed & developed for the **Astral Cruiser 5000 Solar Program**.  
-Built as a design & engineering showcase for portfolios.
