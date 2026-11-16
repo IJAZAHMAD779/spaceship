@@ -2,43 +2,42 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import SpaceCanvas from './components/SpaceCanvas';
-import HudChrome from './components/HudChrome';
-import HeroChapter from './components/HeroChapter';
-import EngineeringChapter from './components/EngineeringChapter';
-import MissionsChapter from './components/MissionsChapter';
-import ArchivesChapter from './components/ArchivesChapter';
-import BookingChapter from './components/BookingChapter';
-import { SUBSYSTEMS } from './data/missionData';
-import { audioEngine } from './utils/audioEngine';
+import CosmicStage from './components/CosmicStage';
+import Navbar from './components/Navbar';
+import HeroAct from './components/HeroAct';
+import OrbiterAct from './components/OrbiterAct';
+import JourneysAct from './components/JourneysAct';
+import ArchivesAct from './components/ArchivesAct';
+import FinaleAct from './components/FinaleAct';
+import { VESSEL_MODULES } from './data/programData';
+import { soundscape } from './utils/soundscape';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('overview');
-  const [activeSubsystem, setActiveSubsystem] = useState('shield');
+  const [activeAct, setActiveAct] = useState('hero');
+  const [activeModule, setActiveModule] = useState('capsule');
   const [explodeAmount, setExplodeAmount] = useState(0);
+  const [bookingPreset, setBookingPreset] = useState(null);
 
-  const manualSubsystemLockRef = useRef(false);
+  const manualModuleLockRef = useRef(false);
   const lenisRef = useRef(null);
-  const engineeringPinRef = useRef(null);
-  const missionsSectionRef = useRef(null);
-  const missionsTrackRef = useRef(null);
+  const orbiterPinRef = useRef(null);
+  const chronicleSectionRef = useRef(null);
+  const chronicleTrackRef = useRef(null);
+  const ambientRef = useRef(null);
 
-  // Shared mutable state read at 60fps inside Three.js RAF loop
   const scrollStateRef = useRef({
     progress: 0,
     velocity: 0,
     explodeAmount: 0,
   });
 
-  // Direct DOM refs for 60fps tabular telemetry without React re-renders
   const telemetryRefs = {
     distRef: useRef(null),
     fluxRef: useRef(null),
-    tempRef: useRef(null),
     velRef: useRef(null),
-    progressBarRef: useRef(null),
+    progressRef: useRef(null),
   };
 
   useEffect(() => {
@@ -51,16 +50,13 @@ export default function App() {
     });
     lenisRef.current = lenis;
 
-    const updateTelemetry = (progress, velocity) => {
+    const syncTelemetry = (progress, velocity) => {
       scrollStateRef.current.progress = progress;
       scrollStateRef.current.velocity = velocity;
 
-      // Physically coupled inverse-square solar descent from 1.000 AU -> 0.038 AU
-      // Non-linear approach curve so AU drops fast during perihelion plunge
       const curve = Math.pow(progress, 1.25);
       const distAu = 1.0 - curve * (1.0 - 0.038);
-      const fluxKw = 1.361 / (distAu * distAu); // kW/m^2 (1.361 at 1 AU -> 942.5 at 0.038 AU)
-      const shieldTemp = 118 + Math.pow(fluxKw / 942.5, 0.42) * 1722;
+      const fluxKw = 1.361 / (distAu * distAu);
       const velocityKms = 7.7 + curve * (142.4 - 7.7);
 
       if (telemetryRefs.distRef.current) {
@@ -70,99 +66,101 @@ export default function App() {
         telemetryRefs.fluxRef.current.textContent =
           fluxKw >= 100 ? `${fluxKw.toFixed(1)} kW/m²` : `${fluxKw.toFixed(2)} kW/m²`;
       }
-      if (telemetryRefs.tempRef.current) {
-        telemetryRefs.tempRef.current.textContent = `${Math.round(shieldTemp).toLocaleString()} °C`;
-      }
       if (telemetryRefs.velRef.current) {
         telemetryRefs.velRef.current.textContent = `${velocityKms.toFixed(1)} km/s`;
       }
-      if (telemetryRefs.progressBarRef.current) {
-        telemetryRefs.progressBarRef.current.style.transform = `scaleX(${Math.max(0.02, progress)})`;
+      if (telemetryRefs.progressRef.current) {
+        telemetryRefs.progressRef.current.style.transform = `scaleX(${Math.max(0.03, progress)})`;
       }
 
-      audioEngine.updateFromScroll(velocity, progress);
+      // Dynamic cosmic color-grade crossfade (Blue LEO -> Solar Corona -> Warm Horizon)
+      if (ambientRef.current) {
+        const solarAlpha = progress > 0.38 && progress < 0.85
+          ? Math.sin(((progress - 0.38) / 0.47) * Math.PI) * 0.55
+          : 0;
+        const blueAlpha = progress < 0.48 ? 1 - progress / 0.48 : 0;
+        ambientRef.current.style.setProperty('--blue-grade', blueAlpha.toFixed(3));
+        ambientRef.current.style.setProperty('--solar-grade', solarAlpha.toFixed(3));
+      }
+
+      soundscape.modulate(velocity, progress);
     };
 
     lenis.on('scroll', ({ progress, velocity }) => {
       ScrollTrigger.update();
-      updateTelemetry(progress || 0, velocity || 0);
+      syncTelemetry(progress || 0, velocity || 0);
     });
 
-    const onTick = (time) => {
-      lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(onTick);
+    const tick = (time) => lenis.raf(time * 1000);
+    gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
     const ctx = gsap.context(() => {
-      // Chapter active state tracking
-      ['overview', 'engineering', 'missions', 'archives', 'clearance'].forEach((id) => {
+      ['hero', 'orbiter', 'journeys', 'archives', 'clearance'].forEach((id) => {
         const el = document.getElementById(id);
         if (!el) return;
         ScrollTrigger.create({
           trigger: el,
           start: 'top 45%',
           end: 'bottom 45%',
-          onEnter: () => setActiveSection(id),
-          onEnterBack: () => setActiveSection(id),
+          onEnter: () => setActiveAct(id),
+          onEnterBack: () => setActiveAct(id),
         });
       });
 
       if (!reducedMotion) {
-        // Chapter 2: Pinned 3D Engineering Explosion & Subsystem Scrubbing
-        if (engineeringPinRef.current) {
+        // Act II: Pinned ORBITA-style 3D showcase + module separation
+        if (orbiterPinRef.current) {
           ScrollTrigger.create({
-            trigger: engineeringPinRef.current,
+            trigger: orbiterPinRef.current,
             start: 'top top',
-            end: '+=1600',
+            end: '+=1800',
             pin: true,
-            scrub: 0.6,
+            scrub: 0.65,
             onUpdate: (self) => {
               const p = self.progress;
-              // Ramp explode up cleanly in first 25%, hold through inspection, settle slightly at end
-              const explode = p < 0.25 ? p / 0.25 : p > 0.88 ? (1 - p) / 0.12 : 1;
+              const explode = p < 0.2 ? p / 0.2 : p > 0.88 ? (1 - p) / 0.12 : 1;
               scrollStateRef.current.explodeAmount = explode;
               setExplodeAmount(explode);
 
-              if (!manualSubsystemLockRef.current) {
+              if (!manualModuleLockRef.current) {
                 const idx = Math.min(
-                  SUBSYSTEMS.length - 1,
-                  Math.floor(p * SUBSYSTEMS.length)
+                  VESSEL_MODULES.length - 1,
+                  Math.floor(p * VESSEL_MODULES.length)
                 );
-                setActiveSubsystem(SUBSYSTEMS[idx].id);
+                setActiveModule(VESSEL_MODULES[idx].id);
               }
             },
             onLeave: () => {
-              manualSubsystemLockRef.current = false;
+              manualModuleLockRef.current = false;
               scrollStateRef.current.explodeAmount = 0;
               setExplodeAmount(0);
             },
             onLeaveBack: () => {
-              manualSubsystemLockRef.current = false;
+              manualModuleLockRef.current = false;
               scrollStateRef.current.explodeAmount = 0;
               setExplodeAmount(0);
             },
           });
         }
 
-        // Chapter 3: Desktop Horizontal Pinned Mission Track
+        // Act III: Desktop horizontal pinned chronicle
         const mm = gsap.matchMedia();
         mm.add('(min-width: 960px)', () => {
-          const section = missionsSectionRef.current;
-          const track = missionsTrackRef.current;
+          const section = chronicleSectionRef.current;
+          const track = chronicleTrackRef.current;
           if (!section || !track) return;
 
-          const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 120);
-
+          const distance = () => Math.max(0, track.scrollWidth - window.innerWidth + 140);
           gsap.to(track, {
-            x: () => -getDistance(),
+            x: () => -distance(),
             ease: 'none',
             scrollTrigger: {
               trigger: section,
               start: 'top top',
-              end: () => `+=${Math.max(900, getDistance())}`,
+              end: () => `+=${Math.max(900, distance())}`,
               pin: true,
-              scrub: 0.8,
+              scrub: 0.85,
               invalidateOnRefresh: true,
             },
           });
@@ -170,63 +168,87 @@ export default function App() {
       }
     });
 
-    updateTelemetry(0, 0);
+    syncTelemetry(0, 0);
 
     return () => {
       ctx.revert();
-      gsap.ticker.remove(onTick);
+      gsap.ticker.remove(tick);
       lenis.destroy();
-      audioEngine.dispose();
+      soundscape.dispose();
     };
   }, []);
 
-  const handleNavigate = (sectionId) => {
-    const target = document.getElementById(sectionId);
-    if (!target) return;
+  const handleNavigate = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
     if (lenisRef.current) {
-      lenisRef.current.scrollTo(target, { offset: -72 });
+      lenisRef.current.scrollTo(el, { offset: 0 });
     } else {
-      target.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const handleSelectSubsystem = (id) => {
-    manualSubsystemLockRef.current = true;
-    setActiveSubsystem(id);
-    if (scrollStateRef.current.explodeAmount < 0.75) {
+  const handleSelectModule = (id) => {
+    manualModuleLockRef.current = true;
+    setActiveModule(id);
+    if (scrollStateRef.current.explodeAmount < 0.7) {
       scrollStateRef.current.explodeAmount = 1;
       setExplodeAmount(1);
     }
   };
 
-  return (
-    <div className="app-shell">
-      <SpaceCanvas scrollStateRef={scrollStateRef} activeSubsystem={activeSubsystem} />
+  const handleSelectDestination = (dest) => {
+    setBookingPreset({ tierId: dest.tierDefault });
+    handleNavigate('clearance');
+  };
 
-      <HudChrome
-        activeSection={activeSection}
+  const handleHeroPreset = ({ destination, launchWindow, guests }) => {
+    const tierMap = {
+      corona: 'vip-quantum',
+      alfven: 'research',
+      mercury: 'observation',
+    };
+    setBookingPreset({
+      tierId: tierMap[destination] || 'observation',
+      launchWindow,
+      guests,
+    });
+  };
+
+  return (
+    <div ref={ambientRef} className="cosmos-shell">
+      {/* Dynamic deep-space radial atmosphere layer (z-index: 0) */}
+      <div className="ambient-backdrop" aria-hidden="true" />
+
+      {/* Persistent transparent Three.js WebGL stage (z-index: 2) */}
+      <CosmicStage scrollStateRef={scrollStateRef} activeModule={activeModule} />
+
+      {/* Minimal Floating Top Navigation & Live Telemetry */}
+      <Navbar
+        activeAct={activeAct}
         onNavigate={handleNavigate}
         telemetryRefs={telemetryRefs}
       />
 
-      <main className="scroll-stage">
-        <HeroChapter onNavigate={handleNavigate} />
+      <main className="acts-flow">
+        <HeroAct onNavigate={handleNavigate} onApplyPreset={handleHeroPreset} />
 
-        <EngineeringChapter
-          pinRef={engineeringPinRef}
-          activeSubsystem={activeSubsystem}
-          onSelectSubsystem={handleSelectSubsystem}
+        <OrbiterAct
+          pinRef={orbiterPinRef}
+          activeModule={activeModule}
+          onSelectModule={handleSelectModule}
           explodeAmount={explodeAmount}
         />
 
-        <MissionsChapter
-          sectionRef={missionsSectionRef}
-          trackRef={missionsTrackRef}
+        <JourneysAct
+          chronicleSectionRef={chronicleSectionRef}
+          chronicleTrackRef={chronicleTrackRef}
+          onSelectDestination={handleSelectDestination}
         />
 
-        <ArchivesChapter />
+        <ArchivesAct />
 
-        <BookingChapter />
+        <FinaleAct preset={bookingPreset} onNavigate={handleNavigate} />
       </main>
     </div>
   );
