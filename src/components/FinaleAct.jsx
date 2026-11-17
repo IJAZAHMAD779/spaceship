@@ -10,8 +10,8 @@ export default function FinaleAct({ preset, onNavigate }) {
   const [tier, setTier] = useState('specialist');
   const [launchWindow, setLaunchWindow] = useState(preset.launchWindow || '2026-11-14');
   const [guests, setGuests] = useState(preset.guests || 1);
-  const [name, setName] = useState('Commander Aria Vance');
-  const [email, setEmail] = useState('aria.vance@astral-program.io');
+  const [name, setName] = useState('Aria Vance');
+  const [email, setEmail] = useState('a.vance@orbital.io');
   const [manifestId, setManifestId] = useState('AST5-9042-C');
   const [confirmed, setConfirmed] = useState(false);
   const [newsletter, setNewsletter] = useState('');
@@ -39,16 +39,10 @@ export default function FinaleAct({ preset, onNavigate }) {
       <div className="container finale-inner">
         <div className="finale-banner">
           <div className="finale-headline-col">
-            <span className="eyebrow-micro solar">FINAL HORIZON // FLIGHT CLEARANCE</span>
+            <span className="eyebrow-micro solar">05 // FLIGHT CLEARANCE</span>
             <h2>
-              We make deep space
-              <br />
-              reachable.
+              Into the <em className="serif-italic">Corona.</em>
             </h2>
-            <p>
-              Reserve an Astral telemetry berth for the next perihelion window and generate your
-              flight-deck manifest directly below.
-            </p>
           </div>
 
           <div className="finale-cta-col">
@@ -60,7 +54,7 @@ export default function FinaleAct({ preset, onNavigate }) {
                 document.getElementById('clearance-form')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              <span>Generate Pass</span>
+              <span>Flight Manifest</span>
               <span aria-hidden="true">→</span>
             </button>
             <button
@@ -71,7 +65,7 @@ export default function FinaleAct({ preset, onNavigate }) {
                 onNavigate('hero');
               }}
             >
-              <span>Return To Orbit</span>
+              <span>LEO Return</span>
               <span aria-hidden="true">↑</span>
             </button>
           </div>
@@ -81,7 +75,7 @@ export default function FinaleAct({ preset, onNavigate }) {
           <form id="clearance-form" className="clearance-form" onSubmit={handleSubmit}>
             <div className="cf-row">
               <div className="cf-field">
-                <label htmlFor="cf-name">Passenger / Crew Lead</label>
+                <label htmlFor="cf-name">Crew Name</label>
                 <input
                   id="cf-name"
                   type="text"
@@ -95,7 +89,7 @@ export default function FinaleAct({ preset, onNavigate }) {
               </div>
 
               <div className="cf-field">
-                <label htmlFor="cf-email">Telemetry Dispatch</label>
+                <label htmlFor="cf-email">Dispatch</label>
                 <input
                   id="cf-email"
                   type="email"
@@ -111,7 +105,7 @@ export default function FinaleAct({ preset, onNavigate }) {
 
             <div className="cf-row three">
               <div className="cf-field">
-                <label htmlFor="cf-dest">Target Corridor</label>
+                <label htmlFor="cf-dest">Corridor</label>
                 <select
                   id="cf-dest"
                   value={destination}
@@ -129,7 +123,7 @@ export default function FinaleAct({ preset, onNavigate }) {
               </div>
 
               <div className="cf-field">
-                <label htmlFor="cf-window">Launch Window</label>
+                <label htmlFor="cf-window">Window</label>
                 <select
                   id="cf-window"
                   value={launchWindow}
@@ -154,15 +148,15 @@ export default function FinaleAct({ preset, onNavigate }) {
                     setConfirmed(false);
                   }}
                 >
-                  <option value={1}>1 Berth</option>
-                  <option value={2}>2 Berths</option>
-                  <option value={4}>4 Berths</option>
+                  <option value={1}>01</option>
+                  <option value={2}>02</option>
+                  <option value={4}>04</option>
                 </select>
               </div>
             </div>
 
             <div className="cf-field">
-              <span className="cf-label">Cabin Tier</span>
+              <span className="cf-label">Class</span>
               <div className="cf-tiers">
                 {CABIN_TIERS.map((t) => {
                   const active = t.id === tier;
@@ -186,7 +180,7 @@ export default function FinaleAct({ preset, onNavigate }) {
                       )}
                       <div className="cf-tier-content">
                         <strong>{t.name}</strong>
-                        <span>${(t.rate / 1000).toFixed(0)}k / berth</span>
+                        <span>${(t.rate / 1000).toFixed(0)}k</span>
                       </div>
                     </button>
                   );
@@ -196,11 +190,11 @@ export default function FinaleAct({ preset, onNavigate }) {
 
             <div className="cf-submit-row">
               <div>
-                <span className="eyebrow-micro muted">ESTIMATED ALLOCATION</span>
+                <span className="eyebrow-micro muted">ALLOCATION</span>
                 <div className="cf-total">${totalRate.toLocaleString()}</div>
               </div>
               <button type="submit" className="finale-btn-white">
-                Issue Flight Clearance
+                Issue Pass
               </button>
             </div>
           </form>
@@ -209,16 +203,16 @@ export default function FinaleAct({ preset, onNavigate }) {
             <div className="pass-top">
               <div>
                 <span className="eyebrow-micro solar">
-                  {confirmed ? 'CLEARED FOR PERIHELION' : 'AWAITING MANIFEST'}
+                  {confirmed ? 'CLEARED' : 'DRAFT'}
                 </span>
-                <h3>ASTRAL-5 BOARDING PASS</h3>
+                <h3>ASTRAL-5 MANIFEST</h3>
               </div>
               <span className="pass-flight">{manifestId}</span>
             </div>
 
             <dl className="pass-grid">
               <div>
-                <dt>PASSENGER</dt>
+                <dt>CREW</dt>
                 <dd>{name || 'Unassigned'}</dd>
               </div>
               <div>
@@ -226,11 +220,11 @@ export default function FinaleAct({ preset, onNavigate }) {
                 <dd className="is-gold">{activeDest.name}</dd>
               </div>
               <div>
-                <dt>LAUNCH WINDOW</dt>
+                <dt>WINDOW</dt>
                 <dd>{launchWindow}</dd>
               </div>
               <div>
-                <dt>BERTHS</dt>
+                <dt>BERTH</dt>
                 <dd>
                   {guests} × {activeTier.name}
                 </dd>
@@ -241,7 +235,7 @@ export default function FinaleAct({ preset, onNavigate }) {
               </div>
               <div>
                 <dt>STATUS</dt>
-                <dd className="is-cyan">{confirmed ? 'LOCKED & CLEARED' : 'DRAFT'}</dd>
+                <dd className="is-cyan">{confirmed ? 'LOCKED' : 'PENDING'}</dd>
               </div>
             </dl>
 
@@ -256,39 +250,37 @@ export default function FinaleAct({ preset, onNavigate }) {
                   className="finale-btn-ghost compact"
                   onClick={() => window.print()}
                 >
-                  Print Boarding Pass
+                  Print
                 </button>
               )}
             </div>
           </aside>
         </div>
 
-        {/* Clean 3-column dark footer */}
         <footer className="horizon-footer">
           <div>
             <div className="hf-brand">
               astral<span className="brand-dot">.</span>
             </div>
             <p className="hf-copy">
-              Built with real NASA 3D resources, SDO extreme ultraviolet imagery, and planetary
-              textures.
+              NASA 3D Resources · SDO EUV · Planetary Textures
             </p>
           </div>
 
           <div>
-            <span className="eyebrow-micro muted">NAVIGATION</span>
+            <span className="eyebrow-micro muted">INDEX</span>
             <div className="hf-links">
               <button type="button" onClick={() => onNavigate('hero')}>
-                Overview
+                01 Horizon
               </button>
               <button type="button" onClick={() => onNavigate('orbiter')}>
-                Parker Solar Probe
+                02 Parker Probe
               </button>
               <button type="button" onClick={() => onNavigate('journeys')}>
-                Journeys Beyond
+                03 Corridors
               </button>
               <button type="button" onClick={() => onNavigate('archives')}>
-                Optical Archives
+                04 Archives
               </button>
             </div>
           </div>
@@ -310,18 +302,17 @@ export default function FinaleAct({ preset, onNavigate }) {
                 placeholder="you@domain.com"
                 value={newsletter}
                 onChange={(e) => setNewsletter(e.target.value)}
-                aria-label="Mission dispatch email"
+                aria-label="Dispatch email"
               />
-              <button type="submit">Join</button>
+              <button type="submit">Lock</button>
             </form>
             {newsletterSent && (
-              <span className="hf-sent">Subscribed to perihelion launch notices.</span>
+              <span className="hf-sent">Telemetry alerts locked.</span>
             )}
           </div>
         </footer>
       </div>
 
-      {/* Dark-theme consistent real NASA Earth-limb orbital horizon */}
       <div className="horizon-nasa-backdrop" aria-hidden="true">
         <img src="./images/nasa_iss_earth.webp" alt="" loading="lazy" />
         <div className="horizon-nasa-mask" />

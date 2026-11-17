@@ -7,12 +7,10 @@ export default function JourneysAct({ onJumpToClearance }) {
     <section id="journeys" className="act journeys-act">
       <div className="container destinations-block">
         <div className="centered-heading">
-          <span className="eyebrow-micro solar">DEEP SPACE TRAJECTORIES</span>
-          <h2>Journeys Beyond</h2>
-          <p>
-            Real NASA solar and planetary observation corridors from Earth orbital staging to
-            the Alfvén corona.
-          </p>
+          <span className="eyebrow-micro solar">03 // CORRIDORS</span>
+          <h2>
+            Beyond <em className="serif-italic">Orbit.</em>
+          </h2>
         </div>
 
         <div className="destination-cards">
@@ -54,11 +52,12 @@ export default function JourneysAct({ onJumpToClearance }) {
         </div>
       </div>
 
-      {/* Horizontal scrubbed chronicle track */}
       <div className="chronicle-pin-wrap">
         <div className="container chronicle-head">
-          <span className="eyebrow-micro cyan">FLIGHT LOG // PARKER TO ARTEMIS</span>
-          <h2>Mission Chronicles</h2>
+          <span className="eyebrow-micro cyan">FLIGHT LOG // 2018 — 2026</span>
+          <h2>
+            Mission <em className="serif-italic">Chronicles.</em>
+          </h2>
         </div>
 
         <div className="chronicle-viewport">

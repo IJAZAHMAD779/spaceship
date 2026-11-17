@@ -8,7 +8,6 @@ export default function OrbiterAct({ activeModule, onSelectModule }) {
   return (
     <section id="orbiter" className="act orbiter-act">
       <div className="orbiter-pin-stage">
-        {/* Radial target reticle behind the 3D Parker Solar Probe */}
         <svg className="orbiter-reticle-svg" viewBox="0 0 1200 760" fill="none" aria-hidden="true">
           <circle cx="600" cy="380" r="150" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
           <circle
@@ -24,17 +23,17 @@ export default function OrbiterAct({ activeModule, onSelectModule }) {
           <line x1="600" y1="20" x2="600" y2="740" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
         </svg>
 
-        {/* Monumental background title behind 3D WebGL spacecraft */}
         <div className="orbiter-bg-word" aria-hidden="true">
           <span>PARKER</span>
         </div>
 
-        {/* Clean floating HUD frame */}
         <div className="orbiter-hud-frame">
           <div className="orbiter-top-row">
             <div className="orbiter-title-block">
-              <span className="eyebrow-micro cyan">VESSEL BLUEPRINT // NASA PARKER GLTF</span>
-              <h2>Parker Solar Probe</h2>
+              <span className="eyebrow-micro cyan">02 // ARCHITECTURE</span>
+              <h2>
+                Parker <em className="serif-italic">Probe.</em>
+              </h2>
             </div>
 
             <dl className="orbiter-spec-column" aria-live="polite">

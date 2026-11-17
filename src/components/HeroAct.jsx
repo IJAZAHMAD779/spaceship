@@ -16,7 +16,6 @@ export default function HeroAct({ onNavigate, onApplyPreset }) {
 
   return (
     <section id="hero" className="act hero-act">
-      {/* Concentric orbital radar rings (Image 1 & 4 aesthetic) */}
       <svg
         className="orbital-rings-bg"
         viewBox="0 0 1200 900"
@@ -29,17 +28,16 @@ export default function HeroAct({ onNavigate, onApplyPreset }) {
         <circle cx="600" cy="540" r="630" stroke="rgba(56,189,248,0.06)" strokeWidth="1" />
       </svg>
 
-      {/* LAYER 1 (z-index: 1): Solid giant monumental wordmark BEHIND the 3D spacecraft */}
+      {/* LAYER 1: Solid giant monumental display behind 3D Astronaut */}
       <div className="hero-wordmark-back" aria-hidden="true">
         <span>ASTRAL-5</span>
       </div>
 
-      {/* LAYER 3 (z-index: 3): Hollow stroke echo IN FRONT of the 3D spacecraft for the depth-sandwich */}
+      {/* LAYER 3: Hollow stroke echo in front of 3D Astronaut */}
       <div className="hero-wordmark-front" aria-hidden="true">
         <span>ASTRAL-5</span>
       </div>
 
-      {/* Editorial overlay content at Layer 4 */}
       <div className="hero-foreground">
         <motion.div
           className="hero-subline"
@@ -47,11 +45,12 @@ export default function HeroAct({ onNavigate, onApplyPreset }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          <p className="hero-tagline">Explore the solar corona. 0.046 AU perihelion.</p>
-          <span className="hero-coord-tag">NASA 3D // LEO GATEWAY TO ALFVÉN SURFACE</span>
+          <p className="hero-tagline">
+            LEO to <em className="serif-italic">0.046 AU</em> perihelion.
+          </p>
+          <span className="hero-coord-tag">NASA 3D // 692,000 KM/H SOLAR FLYBY</span>
         </motion.div>
 
-        {/* Glass pill CTA floating over the glowing Earth atmospheric rim (Image 1) */}
         <motion.button
           type="button"
           className="horizon-cta-pill"
@@ -65,11 +64,10 @@ export default function HeroAct({ onNavigate, onApplyPreset }) {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
         >
-          <span>Inspect Orbiter</span>
+          <span>Inspect Probe</span>
           <span aria-hidden="true">↗</span>
         </motion.button>
 
-        {/* Sleek Horizontal Voyage Selector Bar (Image 3 ORION inspiration) */}
         <motion.form
           className="launch-bar"
           onSubmit={handleLaunchSearch}
@@ -79,50 +77,50 @@ export default function HeroAct({ onNavigate, onApplyPreset }) {
         >
           <div className="launch-bar-cell">
             <label htmlFor="hb-origin">ORIGIN</label>
-            <input id="hb-origin" type="text" value="LEO Gateway 13" readOnly />
+            <input id="hb-origin" type="text" value="LEO 408 KM" readOnly />
           </div>
 
           <div className="launch-bar-cell">
-            <label htmlFor="hb-dest">TRAJECTORY</label>
+            <label htmlFor="hb-dest">TARGET</label>
             <select
               id="hb-dest"
               value={targetOrbit}
               onChange={(e) => setTargetOrbit(e.target.value)}
             >
-              <option value="corona">Corona · 0.038 AU</option>
-              <option value="alfven">Alfvén Rim · 0.054 AU</option>
-              <option value="mercury">Mercury Flyby · 0.387 AU</option>
+              <option value="corona">Corona · 0.046 AU</option>
+              <option value="alfven">EUV Belt · 0.054 AU</option>
+              <option value="mercury">Cis-Lunar · 384,400 km</option>
             </select>
           </div>
 
           <div className="launch-bar-cell">
-            <label htmlFor="hb-window">LAUNCH WINDOW</label>
+            <label htmlFor="hb-window">WINDOW</label>
             <select
               id="hb-window"
               value={windowDate}
               onChange={(e) => setWindowDate(e.target.value)}
             >
-              <option value="2026-11-14">Nov 14, 2026</option>
-              <option value="2027-03-22">Mar 22, 2027</option>
-              <option value="2027-08-10">Aug 10, 2027</option>
+              <option value="2026-11-14">2026-11-14</option>
+              <option value="2027-03-22">2027-03-22</option>
+              <option value="2027-08-10">2027-08-10</option>
             </select>
           </div>
 
           <div className="launch-bar-cell">
-            <label htmlFor="hb-crew">PERSONNEL</label>
+            <label htmlFor="hb-crew">BERTHS</label>
             <select
               id="hb-crew"
               value={crewCount}
               onChange={(e) => setCrewCount(Number(e.target.value))}
             >
-              <option value={1}>1 Specialist</option>
-              <option value={2}>2 Specialists</option>
-              <option value={4}>4 Crew Pod</option>
+              <option value={1}>01 Berth</option>
+              <option value={2}>02 Berths</option>
+              <option value={4}>04 Berths</option>
             </select>
           </div>
 
           <button type="submit" className="launch-bar-submit">
-            Configure Pass
+            Manifest →
           </button>
         </motion.form>
       </div>
