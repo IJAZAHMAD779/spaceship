@@ -40,8 +40,10 @@ export default function ArchivesAct() {
       <div className="container">
         <div className="archives-header-row">
           <div>
-            <span className="eyebrow-micro cyan">OPTICAL TELEMETRY // 4K ARCHIVE</span>
-            <h2>Captures From The Corona</h2>
+            <span className="eyebrow-micro cyan">04 // NASA OPTICAL ARCHIVE</span>
+            <h2>
+              Solar <em className="serif-italic">Frames.</em>
+            </h2>
           </div>
 
           <div className="archive-tabs" role="group" aria-label="Filter archive captures">
@@ -102,11 +104,12 @@ export default function ArchivesAct() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Flight Leadership */}
         <div className="leaders-section">
           <div className="leaders-intro">
-            <span className="eyebrow-micro solar">COMMAND & HELIOPHYSICS</span>
-            <h3>Flight Leadership</h3>
+            <span className="eyebrow-micro solar">FLIGHT CREW</span>
+            <h3>
+              Command <em className="serif-italic">Roster.</em>
+            </h3>
           </div>
 
           <div className="leaders-grid">
@@ -116,7 +119,7 @@ export default function ArchivesAct() {
                 <div>
                   <span className="eyebrow-micro cyan">{leader.role}</span>
                   <h4>{leader.name}</h4>
-                  <p className="leader-quote">“{leader.quote}”</p>
+                  <p className="leader-quote">{leader.fact}</p>
                   <span className="leader-meta">{leader.meta}</span>
                 </div>
               </article>
@@ -125,7 +128,6 @@ export default function ArchivesAct() {
         </div>
       </div>
 
-      {/* Shared-element Framer Motion Lightbox */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -163,7 +165,7 @@ export default function ArchivesAct() {
                     Next
                   </button>
                   <button type="button" onClick={() => setSelectedId(null)}>
-                    Close [ESC]
+                    ESC
                   </button>
                 </div>
               </div>

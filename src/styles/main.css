@@ -14,10 +14,20 @@
   --line: rgba(255, 255, 255, 0.12);
   --line-soft: rgba(255, 255, 255, 0.07);
 
-  --font-display: 'Syne', 'Space Grotesk', sans-serif;
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Unbounded', sans-serif;
+  --font-heading: 'Unbounded', sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Archivo', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.15em;
+  letter-spacing: -0.01em;
+  color: #f8fafc;
 }
 
 *,
@@ -416,9 +426,9 @@ a {
   display: inline-block;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3.6rem, 13.8vw, 13.2rem);
-  line-height: 0.9;
-  letter-spacing: 0.02em;
+  font-size: clamp(2.8rem, 11.2vw, 11rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
@@ -588,12 +598,12 @@ a {
 }
 
 .orbiter-bg-word span {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(4.2rem, 15.5vw, 15.5rem);
-  letter-spacing: 0.02em;
-  line-height: 0.9;
-  color: rgba(248, 250, 252, 0.92);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.6rem, 13.5vw, 13.5rem);
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+  color: rgba(248, 250, 252, 0.9);
 }
 
 .orbiter-hud-frame {
@@ -784,25 +794,41 @@ a {
   z-index: 2;
 }
 
-.dest-orb {
-  width: 112px;
-  height: 112px;
+.dest-orb-real {
+  width: 118px;
+  height: 118px;
   border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.22);
 }
 
-.orb-solar {
-  background: radial-gradient(circle at 34% 30%, #fff4cc 0%, #f59e0b 45%, #7c2d12 85%, #1c0802 100%);
-  box-shadow: 0 0 42px rgba(245, 158, 11, 0.45);
+.dest-orb-real img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
 }
 
-.orb-cyan {
-  background: radial-gradient(circle at 34% 30%, #e0f2fe 0%, #38bdf8 48%, #0c4a6e 86%, #020814 100%);
-  box-shadow: 0 0 42px rgba(56, 189, 248, 0.4);
+.dest-orb-real::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset -18px -14px 28px rgba(0, 0, 0, 0.72), inset 8px 8px 18px rgba(255, 255, 255, 0.14);
+  pointer-events: none;
 }
 
-.orb-violet {
-  background: radial-gradient(circle at 34% 30%, #f5d0fe 0%, #c084fc 45%, #581c87 86%, #140524 100%);
-  box-shadow: 0 0 42px rgba(192, 132, 252, 0.38);
+.dest-solar .dest-orb-real {
+  box-shadow: 0 0 42px rgba(245, 158, 11, 0.42);
+}
+
+.dest-cyan .dest-orb-real {
+  box-shadow: 0 0 42px rgba(56, 189, 248, 0.38);
+}
+
+.dest-violet .dest-orb-real {
+  box-shadow: 0 0 42px rgba(129, 140, 248, 0.38);
 }
 
 .dest-horizon-glow {
@@ -1097,6 +1123,8 @@ a {
   height: 112px;
   border-radius: 8px;
   object-fit: cover;
+  object-position: center top;
+  filter: contrast(1.06) brightness(0.92);
 }
 
 .leader-row h4 {
@@ -1197,13 +1225,13 @@ a {
 }
 
 /* ==========================================================================
-   ACT V — WARM PLANETARY FINALE (IMAGE 2) & MANIFEST
+   ACT V — DARK ORBITAL FINALE & MANIFEST
    ========================================================================== */
 .finale-act {
   position: relative;
   z-index: 4;
-  padding: 110px 0 0;
-  background: linear-gradient(180deg, #02040a 0%, #090605 55%, #1d100a 100%);
+  padding: 110px 0 84px;
+  background: linear-gradient(180deg, #02040a 0%, #040812 58%, #02040a 100%);
   overflow: hidden;
 }
 
@@ -1560,17 +1588,35 @@ a {
   color: var(--cyan);
 }
 
-.horizon-terrain {
-  position: relative;
-  z-index: 2;
-  margin-top: -10px;
-  line-height: 0;
+.horizon-nasa-backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 360px;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.terrain-svg {
+.horizon-nasa-backdrop img {
   width: 100%;
-  height: 220px;
-  display: block;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 68%;
+  opacity: 0.34;
+  filter: saturate(0.85) contrast(1.1);
+}
+
+.horizon-nasa-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #040812 0%,
+    rgba(4, 8, 18, 0.55) 45%,
+    rgba(2, 4, 10, 0.88) 100%
+  );
 }
 
 /* ==========================================================================
@@ -1696,8 +1742,8 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .terrain-svg {
-    height: 150px;
+  .horizon-nasa-backdrop {
+    height: 240px;
   }
 }
 
@@ -1718,7 +1764,7 @@ a {
   .finale-banner,
   .clearance-form,
   .horizon-footer,
-  .horizon-terrain,
+  .horizon-nasa-backdrop,
   .finale-btn-ghost {
     display: none !important;
   }
