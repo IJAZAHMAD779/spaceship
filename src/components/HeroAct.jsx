@@ -47,8 +47,8 @@ export default function HeroAct({ onNavigate, onApplyPreset }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          <p className="hero-tagline">Explore the solar corona. 0.038 AU perihelion.</p>
-          <span className="hero-coord-tag">AC-5000 // LEO GATEWAY 13 TO ALFVÉN RIM</span>
+          <p className="hero-tagline">Explore the solar corona. 0.046 AU perihelion.</p>
+          <span className="hero-coord-tag">NASA 3D // LEO GATEWAY TO ALFVÉN SURFACE</span>
         </motion.div>
 
         {/* Glass pill CTA floating over the glowing Earth atmospheric rim (Image 1) */}
